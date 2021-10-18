@@ -1,0 +1,123 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:2:1-50:12
+INJECTED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:2:1-50:12
+INJECTED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:2:1-50:12
+INJECTED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:2:1-50:12
+INJECTED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:2:1-50:12
+INJECTED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:2:1-50:12
+INJECTED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:2:1-50:12
+	package
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:3:5-38
+		INJECTED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml
+		INJECTED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml
+	android:versionName
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:5:5-30
+		INJECTED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml
+		INJECTED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:2:11-69
+	android:versionCode
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:4:5-28
+		INJECTED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml
+		INJECTED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:11:5-79
+	android:name
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:11:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:12:5-75
+	android:name
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:12:22-73
+uses-permission#android.permission.INTERNET
+ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:13:5-66
+	android:name
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:13:22-64
+uses-permission#android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:14:5-83
+	android:name
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:14:22-81
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:15:5-81
+	android:name
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:15:22-78
+uses-permission#android.permission.CAMERA
+ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:16:5-67
+	android:name
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:16:22-64
+uses-feature#android.hardware.camera
+ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:17:5-60
+	android:name
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:17:19-57
+uses-feature#android.hardware.camera.autofocus
+ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:18:5-70
+	android:name
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:18:19-67
+uses-feature#android.hardware.camera.flash
+ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:19:5-66
+	android:name
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:19:19-63
+uses-permission#android.permission.WRITE_SETTINGS
+ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:20:5-75
+	android:name
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:20:22-72
+application
+ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:22:5-49:19
+activity#cn.cloudwalk.libproject.OcrCameraActivity
+ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:23:9-26:62
+	android:screenOrientation
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:26:13-50
+	android:label
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:25:13-45
+	android:name
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:24:13-69
+activity#cn.cloudwalk.libproject.LiveResultActivity
+ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:27:9-30:61
+	android:screenOrientation
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:30:13-49
+	android:label
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:29:13-45
+	android:name
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:28:13-70
+activity#cn.cloudwalk.libproject.LiveActivity
+ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:31:9-34:61
+	android:screenOrientation
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:34:13-49
+	android:label
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:33:13-45
+	android:name
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:32:13-64
+activity#cn.cloudwalk.libproject.LiveStartActivity
+ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:35:9-38:61
+	android:screenOrientation
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:38:13-49
+	android:label
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:37:13-45
+	android:name
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:36:13-69
+activity#cn.cloudwalk.libproject.CloudwalkBankCardOCRActivity
+ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:40:9-44:62
+	android:screenOrientation
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:44:13-50
+	android:label
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:43:13-45
+	android:configChanges
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:42:13-59
+	android:name
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:41:13-80
+activity#cn.cloudwalk.libproject.BankCardResultActivity
+ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:45:9-48:61
+	android:screenOrientation
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:48:13-49
+	android:label
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:47:13-45
+	android:name
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml:46:13-74
+uses-sdk
+INJECTED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml
+INJECTED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml
+		ADDED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml
+		INJECTED from D:\Android Studio\StudioProject\MyWork\ocrsdkproject\AndroidManifest.xml

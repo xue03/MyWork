@@ -1,0 +1,5 @@
+include ':wheelview'
+include ':ocrsdkproject'
+include ':csiizxing'
+include ':pictureselector'
+include ':app'

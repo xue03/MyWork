@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.work.mywork">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 相机相册 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 通讯录 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- 定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <!-- IM SDK required start -->
+    <!-- 允许程序振动 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 访问网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 麦克风权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 相机权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- 写入扩展存储权限-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- 这个权限用于访问GPS定位(用于定位消息，如果不用定位相关可以移除) -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- api 21后被标记为deprecated -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- 用于访问wifi网络信息-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!-- 用于获取wifi的获取权限 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <!-- 允许程序在手机屏幕关闭后后台进程仍然运行 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 允许程序修改声音设置信息 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <!-- 允许程序访问电话状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 允许程序开机自动运行 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 捕获屏幕所需权限，Q后新增权限(多人音视频屏幕分享使用) -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <!-- IM SDK required end -->
+
+    <application
+        android:name=".app.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+<!--        腾讯tbs预览-->
+        <service
+            android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
+            android:label="dexopt"
+            android:process=":dexopt" >
+        </service>
+        <activity android:name=".PdfWebviewActivity"></activity>
+        <activity android:name=".view.ManageActivity"/>
+        <activity android:name=".view.LoginActivity" />
+        <activity android:name=".AppActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="cn.com.csii.mobile.zxing.CaptureActivity"
+            tools:ignore="Instantiatable" />
+        <activity android:name=".view.ShowPdfActivity"/>
+        <activity android:name=".MainActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.work.mywork.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <activity
+            android:name="cn.cloudwalk.libproject.LiveResultActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="cn.cloudwalk.libproject.LiveActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="cn.cloudwalk.libproject.LiveStartActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+                                        <!--        环信配置 start     -->
+<!--        &lt;!&ndash; 设置环信应用的AppKey &ndash;&gt;-->
+<!--        <meta-data android:name="EASEMOB_APPKEY"  android:value="1134200720168765#weinfo" />-->
+<!--        &lt;!&ndash; 声明SDK所需的service SDK核心功能&ndash;&gt;-->
+<!--        <service android:name="com.hyphenate.chat.EMChatService" android:exported="true"/>-->
+<!--        <service android:name="com.hyphenate.chat.EMJobService"-->
+<!--            android:permission="android.permission.BIND_JOB_SERVICE"-->
+<!--            android:exported="true"-->
+<!--            />-->
+<!--        &lt;!&ndash; 声明SDK所需的receiver &ndash;&gt;-->
+<!--        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.PACKAGE_REMOVED"/>-->
+<!--                <data android:scheme="package"/>-->
+<!--            </intent-filter>-->
+<!--            &lt;!&ndash; 可选filter &ndash;&gt;-->
+<!--&lt;!&ndash;            <intent-filter>&ndash;&gt;-->
+<!--&lt;!&ndash;                <action android:name="android.intent.action.BOOT_COMPLETED"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                <action android:name="android.intent.action.USER_PRESENT" />&ndash;&gt;-->
+<!--&lt;!&ndash;            </intent-filter>&ndash;&gt;-->
+<!--        </receiver>-->
+<!--        &lt;!&ndash;        环信配置 end     &ndash;&gt;-->
+    </application>
+
+    <queries>
+        <package android:name="com.tencent.mm" />            <!-- 指定微信包名-->
+        <package android:name="com.tencent.mobileqq" />   <!-- 指定qq包名-->
+        <package android:name="com.sina.weibo" />           <!-- 指定微博包名-->
+        <package android:name="com.tencent.wework" />      <!-- 指定企业微信包名-->
+        <package android:name="com.qzone" />               <!-- 指定qq空间包名-->
+        <package android:name="com.alibaba.android.rimet" /> <!-- 指定钉钉包名-->
+        <package android:name="com.eg.android.AlipayGphone" /> <!-- 指定支付宝包名-->
+        <package android:name="com.instagram.android" />       <!-- 指定instagram包名-->
+    </queries>
+
+</manifest>

@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "applicationId": "cn.cloudwalk.libproject",
+  "variantType": "LIBRARY",
+  "elements": [
+    {
+      "outputType": {
+        "type": "AAPT_FRIENDLY_MERGED_MANIFESTS"
+      },
+      "apkData": {
+        "type": "MAIN",
+        "splits": [],
+        "versionCode": 1,
+        "versionName": "1.0",
+        "outputFile": "ocrsdkproject-debug.aar",
+        "fullName": "debug",
+        "baseName": "debug",
+        "dirName": ""
+      },
+      "path": "AndroidManifest.xml",
+      "properties": {
+        "packageId": "cn.cloudwalk.libproject",
+        "split": ""
+      }
+    }
+  ]
+}

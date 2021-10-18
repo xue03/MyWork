@@ -1,0 +1,448 @@
+apply plugin: 'com.android.library'
+
+//使用新版密码控件开关，默认为true，如果为true，则编译新版的密码控件相关jar与相关类，反之使用老版的密码控件
+def useNewPowerPointEnter = true
+android {
+    compileSdkVersion 29
+    buildToolsVersion "26.0.1"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        consumerProguardFiles 'proguard-rules.pro'
+
+        ndk {
+            //abiFilters "x86"
+            abiFilters "armeabi-v7a"
+        }
+
+        manifestPlaceholders = [
+                "appId": rootProject.ext.appId
+        ]
+
+        buildConfigField 'boolean', 'useNewPowerPointEnter', 'Boolean.valueOf(' + useNewPowerPointEnter + ')'
+        buildConfigField 'String','appId','"'+rootProject.ext.appId+'"'
+
+    }
+    buildTypes {
+        release {
+            //混淆
+            minifyEnabled true
+            // Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource
+            shrinkResources true
+            //混淆配置
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+        showAll true
+    }
+
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+
+    android.libraryVariants.all {
+        variant ->
+            variant.outputs.each { output ->
+                if (output.outputFile != null && output.outputFile.name.endsWith('.aar')) {
+                    def aarFile = new File(output.outputFile.getParent(),"MADCore_${variant.buildType.name}.aar")
+                    output.outputFile = aarFile
+                }
+            }
+    }
+}
+
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+if(file(rootDir.getAbsolutePath()+java.io.File.separator+'fat-aar.gradle').exists()){
+    apply from: rootDir.getAbsolutePath()+java.io.File.separator+'fat-aar.gradle'
+}
+if(file('preprocess.gradle').exists()){
+    apply from: 'preprocess.gradle'
+}
+
+dependencies {
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:26.0.0'
+    compile 'com.android.support:recyclerview-v7:26.0.0'
+    compile 'com.android.support:support-v4:26.0.0'
+
+    if(file('preprocess.gradle').exists()){
+        //weex
+        embedded(name: rootProject.ext.envConfig.weexSDKVersion, ext: 'aar')
+        //核心SDK
+        embedded(name: 'Worker', ext: 'aar')
+        //fastjson
+        compile files('libs/fastjson-1.2.70.jar')
+        //glide
+        compile files('libs/glide-4.7.0.jar')
+        //tbs
+        compile files('libs/tbs_sdk_thirdapp_v4.3.0.3_43903.jar')
+        //云从科技OCR/人脸
+        embedded(name: 'ocr-face', ext: 'aar')
+        //云从科技OCR/人脸（新版2021）
+        embedded(name: '3in1-online-v1.0.7.20210621-OL', ext: 'aar')
+        //天诚盛业人脸
+        embedded(name: 'common-eyecoollive-release', ext: 'aar')
+        //Lottie动画
+        embedded(name: 'lottie-2.5.4', ext: 'aar')
+        testCompile 'junit:junit:4.12'
+        //密码控件
+        if (useNewPowerPointEnter) {
+            compile files('libs/HBCFC.jar')
+            provided files('libs/JZCCB.jar')//不打入aar
+        } else {
+            provided files('libs/HBCFC.jar')//不打入aar
+            compile files('libs/JZCCB.jar')
+        }
+        //百度地图
+        compile files('libs/BaiduLBS_Android_5.2.1.jar')
+        //高德地图
+        compile files('libs/amap.jar')
+        //扫码
+        compile files('libs/CSIIZxing.jar')
+        //魅族指纹
+        compile files('libs/MeiZu_Fingerprint.jar')
+        //三星指纹
+        compile files('libs/Samsung_Fingerprint_Pass-v1.2.2.jar')
+        compile files('libs/Samsung_Fingerprint_Sdk-v1.0.0.jar')
+        //青岛农商密码键盘
+        compile files('libs/passguard.jar')
+        //科大讯飞语音识别
+        compile files('libs/Msc.jar')
+        compile files('libs/Sunflower.jar')
+        //LinkFace活体
+        embedded(name: 'LinkFace-release', ext: 'aar')
+        embedded(name: 'LFLivenessSDK', ext: 'aar')
+        embedded(name: 'LFCard-release', ext: 'aar')
+        embedded(name: 'lfocrdetectlib', ext: 'aar')
+        //行为分析
+        embedded(name: 'magician', ext: 'aar')
+        //FIDO指纹
+        embedded(name: 'fidoLibrary-release', ext: 'aar')
+        compile files('libs/fidosdk.jar')
+        compile files('libs/httpclient-4.2.5.jar')
+        compile files('libs/httpcore-4.2.4.jar')
+        //云证通
+        embedded(name: 'HKE_SDK-v5.5.0.2', ext: 'aar')
+        //云证通 密码控件
+        compile files('libs/CFCAMLog.jar')
+        compile files('libs/HKESipEditText.jar')
+        //云脉ocr
+        embedded(name: 'yunmai-idcardocr', ext: 'aar')
+        embedded(name: 'yunmai-bankcardocr', ext: 'aar')
+        //Megvii Face++(人脸)
+        embedded(name: 'MegviiLivenessLib', ext: 'aar')
+        //友盟分享
+        embedded(name: 'umsharelib', ext: 'aar')
+        //Megvii Face++(人脸在线版)
+        embedded(name: 'MegviiLivenessOnlineLib', ext: 'aar')
+        embedded(name: 'meglive_still_3.1.5', ext: 'aar')
+        //Megvii Face++(扫描身份证)
+        embedded(name: 'MegviiIDCardLib', ext: 'aar')
+//        compile files('libs/idcardquality-proguard-1.2.2.jar')
+//        compile files('libs/licensemanager-v1.2.jar')
+        //合合ocr
+        compile files('libs/idcardscansdk_pr.jar')
+        compile files('libs/mini_ccrsdk_pr.jar')
+        compile files('libs/nbs.newlens.agent.jar')
+        //飞天蓝牙key
+        compile files('libs/ftkeyInterface.jar')
+        compile files('libs/ftLoader.jar')
+        // 极验SDK
+        embedded (name: 'geetest_sensebot_android_v4.0.2.16', ext: 'aar')
+
+        embedded (name: 'fosafer', ext: 'aar')
+        embedded (name: 'fosFace', ext: 'aar')
+        embedded (name: 'fosSpeaker', ext: 'aar')
+
+        //阿里实人认证
+        embedded (name: 'android-aliyunface-sdk-release-1.2.7', ext: 'aar')
+        embedded (name: 'oss-android-sdk-2.9.4', ext: 'aar')
+    }else {
+
+        //处理公共libs
+        List<String> baseBundlelist =processLibrary("baseBundle")
+        if(baseBundlelist!=null&&!baseBundlelist.empty){
+            for(int i=0;i<baseBundlelist.size();i++){
+                String lib=baseBundlelist.get(i)
+                if(lib==null||lib.length()==0){
+                    continue
+                }
+                if(lib.endsWith(".aar")){
+                    embedded(name:lib.substring(0,lib.indexOf(".aar")),ext:'aar')
+                }else if(lib.endsWith(".jar")){
+                    compile files("libs/"+lib)
+                }
+            }
+        }
+
+        //处理weex 渲染
+        if (rootProject.ext.renderMode.weexRender) {
+            List<String> bundlelist =processLibrary("weexBaseBundle")
+            if(bundlelist!=null&&!bundlelist.empty){
+                for(int i=0;i<bundlelist.size();i++){
+                    String lib=bundlelist.get(i)
+                    if(lib==null||lib.length()==0){
+                        continue
+                    }
+                    if(lib.endsWith(".aar")){
+                        embedded(name:lib.substring(0,lib.indexOf(".aar")),ext:'aar')
+                    }else if(lib.endsWith(".jar")){
+                        compile files("libs/"+lib)
+                    }
+                }
+            }
+        }
+
+
+        //处理web 渲染
+        if (rootProject.ext.renderMode.webRender) {
+            List<String> bundlelist =processLibrary("webBaseBundle")
+            if(bundlelist!=null&&!bundlelist.empty){
+                for(int i=0;i<bundlelist.size();i++){
+                    String lib=bundlelist.get(i)
+                    if(lib==null||lib.length()==0){
+                        continue
+                    }
+                    if(lib.endsWith(".aar")){
+                        embedded(name:lib.substring(0,lib.indexOf(".aar")),ext:'aar')
+                    }else if(lib.endsWith(".jar")){
+                        compile files("libs/"+lib)
+                    }
+                }
+            }
+        }
+
+        //处理tangram 渲染
+        if (rootProject.ext.renderMode.tangramRender) {
+            List<String> bundlelist =processLibrary("tangramBaseBundle")
+            if(bundlelist!=null&&!bundlelist.empty){
+                for(int i=0;i<bundlelist.size();i++){
+                    String lib=bundlelist.get(i)
+                    if(lib==null||lib.length()==0){
+                        continue
+                    }
+                    if(lib.endsWith(".aar")){
+                        embedded(name:lib.substring(0,lib.indexOf(".aar")),ext:'aar')
+                    }else if(lib.endsWith(".jar")){
+                        compile files("libs/"+lib)
+                    }
+                }
+            }
+        }
+
+        //处理keylin 渲染
+        if (rootProject.ext.renderMode.kylinRender) {
+            List<String> bundlelist =processLibrary("kylinBaseBundle")
+            if(bundlelist!=null&&!bundlelist.empty){
+                for(int i=0;i<bundlelist.size();i++){
+                    String lib=bundlelist.get(i)
+                    if(lib==null||lib.length()==0){
+                        continue
+                    }
+                    if(lib.endsWith(".aar")){
+                        embedded(name:lib.substring(0,lib.indexOf(".aar")),ext:'aar')
+                    }else if(lib.endsWith(".jar")){
+                        compile files("libs/"+lib)
+                    }
+                }
+            }
+        }
+
+        //处理weex bundle
+        if (rootProject.ext.renderMode.weexRender) {
+            List<String> bundlelist =processExtBundleLibrary("bundleConfig")
+            if(bundlelist!=null&&!bundlelist.empty){
+                for(int i=0;i<bundlelist.size();i++){
+                    String lib=bundlelist.get(i)
+                    if(lib==null||lib.length()==0){
+                        continue
+                    }
+                    if(lib.endsWith(".aar")){
+                        embedded(name:lib.substring(0,lib.indexOf(".aar")),ext:'aar')
+                    }else if(lib.endsWith(".jar")){
+                        compile files("libs/"+lib)
+                    }
+                }
+            }
+        }
+
+        //处理web bundle
+        if (rootProject.ext.renderMode.webRender) {
+            List<String> bundlelist =processExtBundleLibrary("webBundleConfig")
+            if(bundlelist!=null&&!bundlelist.empty){
+                for(int i=0;i<bundlelist.size();i++){
+                    String lib=bundlelist.get(i)
+                    if(lib==null||lib.length()==0){
+                        continue
+                    }
+                    if(lib.endsWith(".aar")){
+                        embedded(name:lib.substring(0,lib.indexOf(".aar")),ext:'aar')
+                    }else if(lib.endsWith(".jar")){
+                        compile files("libs/"+lib)
+                    }
+                }
+            }
+        }
+
+        //处理tangram bundle
+        if (rootProject.ext.renderMode.tangramRender) {
+            List<String> bundlelist =processExtBundleLibrary("tangramBundleConfig")
+            if(bundlelist!=null&&!bundlelist.empty){
+                for(int i=0;i<bundlelist.size();i++){
+                    String lib=bundlelist.get(i)
+                    if(lib==null||lib.length()==0){
+                        continue
+                    }
+                    if(lib.endsWith(".aar")){
+                        embedded(name:lib.substring(0,lib.indexOf(".aar")),ext:'aar')
+                    }else if(lib.endsWith(".jar")){
+                        compile files("libs/"+lib)
+                    }
+                }
+            }
+        }
+
+        //处理keylin bundle
+        if (rootProject.ext.renderMode.kylinRender) {
+            List<String> bundlelist =processExtBundleLibrary("kylinBundleConfig")
+            if(bundlelist!=null&&!bundlelist.empty){
+                for(int i=0;i<bundlelist.size();i++){
+                    String lib=bundlelist.get(i)
+                    if(lib==null||lib.length()==0){
+                        continue
+                    }
+                    if(lib.endsWith(".aar")){
+                        embedded(name:lib.substring(0,lib.indexOf(".aar")),ext:'aar')
+                    }else if(lib.endsWith(".jar")){
+                        compile files("libs/"+lib)
+                    }
+                }
+            }
+        }
+    }
+}
+
+//处理baseBundle的library
+private List<String> processLibrary(String bundleName){
+    List bundlelist = new ArrayList()
+    if(rootProject.ext.properties.containsKey(bundleName)){
+        Map<String,String> baseBundle=rootProject.ext.properties.get(bundleName)
+        if(baseBundle.containsKey("includelibs")&&!baseBundle.includelibs.isEmpty()){
+            //分割includelibs
+            String[] libs=baseBundle.includelibs.split("\\|")
+            for(String lib:libs){
+                if(lib.contains("Worker_"+rootProject.ext.buildSUFFIX+".aar")){
+                    println("ignore lib :"+lib)
+                    continue
+                }
+                println("process "+path+" build.gradle: lib:"+lib)
+                File file
+                if(lib.startsWith("/")){
+                    file=new File(projectDir.getAbsolutePath()+"/libs"+lib)
+                }else{
+                    file=new File(projectDir.getAbsolutePath()+"/libs/"+lib)
+                }
+                if(!file.exists()){
+                    continue
+                }
+
+                bundlelist.add(lib)
+            }
+        }
+    }else{
+        println("processLibs ext miss "+bundleName)
+    }
+    return bundlelist
+}
+
+//处理扩展bundle的library
+private List<String> processExtBundleLibrary(String bundleConfigName){
+    List bundlelist = new ArrayList()
+    if(!rootProject.ext.properties.containsKey(bundleConfigName)){
+        println("process "+path+" build.gradle: ext miss "+bundleConfigName)
+        return
+    }
+
+    if(!rootProject.ext.properties.get(bundleConfigName).asBoolean()){
+        println("process "+path+" build.gradle:can not cast to Map [ "+bundleConfigName+"]")
+        return
+    }
+
+    Map<String,Boolean> bundleConfig=rootProject.ext.properties.get(bundleConfigName)
+
+    for (Map.Entry<String, Boolean> entry : bundleConfig.entrySet()) {
+        if(entry.getValue()){
+            System.out.println("process "+path+" build.gradle:[ "+bundleConfigName+"] bundleName = " + entry.getKey() + ", bundleStatus = " + entry.getValue())
+            if(!rootProject.ext.properties.containsKey(entry.getKey())){
+                println("process "+path+" build.gradle: ext miss [ "+bundleConfigName+"]:"+entry.getKey()+" config")
+                continue
+            }
+
+            Map<String,String> readBundleConfig=rootProject.ext.properties.get(entry.getKey())
+            if(!readBundleConfig.containsKey("includelibs")){
+                continue
+            }
+
+
+            if(readBundleConfig.includelibs.isEmpty()){
+                continue
+            }
+
+            //分割includelibs
+            String[] libs=readBundleConfig.includelibs.split("\\|")
+            for(String lib:libs){
+                println("process "+path+" build.gradle: [ "+bundleConfigName+"] lib:"+lib)
+                if(lib.startsWith("powerenter_")&&lib.endsWith(".aar")){
+                    lib = "powerenter.aar"
+                }
+
+                if(lib.startsWith("fidosdk_")&&lib.endsWith(".aar")){
+                    lib = "fidosdk.aar"
+                }
+
+                if(lib.startsWith("HKE_SDK_")&&lib.endsWith(".aar")){
+                    lib = "HKE_SDK.aar"
+                }
+
+                if(lib.startsWith("ocr-face_")&&lib.endsWith(".aar")){
+                    lib = "ocr-face.aar"
+                }
+
+                if(lib.startsWith("CFCAMLog_")&&lib.endsWith(".jar")){
+                    lib = "CFCAMLog.jar"
+                }
+
+                if(lib.startsWith("HKESipEditText_")&&lib.endsWith(".jar")){
+                    lib = "HKESipEditText.jar"
+                }
+
+                File file
+                if(lib.startsWith("/")){
+                    file=new File(projectDir.getAbsolutePath()+"/libs"+lib)
+                }else{
+                    file=new File(projectDir.getAbsolutePath()+"/libs/"+lib)
+                }
+                if(!file.exists()){
+                    continue
+                }
+                bundlelist.add(lib)
+            }
+        }
+    }
+    return bundlelist
+}
+
