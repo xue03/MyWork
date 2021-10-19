@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <external-files-path path="/download" name="download"/>
-    <root-path name="my_image" path="."/>
-    <external-files-path name="umeng_cache" path="umeng_cache/"/>
+    <external-files-path
+        name="download"
+        path="/download" />
+    <root-path
+        name="my_image"
+        path="." />
+    <!--    微信分享sdk 共享路径-->
+    <external-files-path
+        name="umeng_cache"
+        path="umeng_cache/" />
+    <!--    QQ分享sdk 共享路径-->
+    <root-path
+        name="opensdk_root"
+        path="" />
+    <external-files-path
+        name="opensdk_external"
+        path="Images/tmp" />
+    <!--    新浪微博 分享sdk 共享路徑-->
+    <external-files-path
+        name="share_files"
+        path="." />
 </resources>

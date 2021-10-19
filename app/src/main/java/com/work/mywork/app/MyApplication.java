@@ -4,10 +4,9 @@ import android.app.Application;
 import android.content.Context;
 
 import com.hyphenate.chat.ChatClient;
-import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMOptions;
-import com.hyphenate.helpdesk.callback.Callback;
 import com.hyphenate.helpdesk.easeui.UIProvider;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
 
 public class MyApplication extends Application {
     public static Context mContext;
@@ -16,28 +15,25 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this;
-
-//        EMOptions options = new EMOptions();
-//// 默认添加好友时，是不需要验证的，改成需要验证
-//        options.setAcceptInvitationAlways(false);
-//// 是否自动将消息附件上传到环信服务器，默认为True是使用环信服务器上传下载，如果设为 false，需要开发者自己处理附件消息的上传和下载
-//        options.setAutoTransferMessageAttachments(true);
-//// 是否自动下载附件类消息的缩略图等，默认为 true 这里和上边这个参数相关联
-//        options.setAutoDownloadThumbnail(true);
-//
-////初始化
-//        EMClient.getInstance().init(mContext, options);
-////在做打包混淆时，关闭debug模式，避免消耗不必要的资源
-//        EMClient.getInstance().setDebugMode(true);
-
         //环信初始化
         ChatClient.Options options = new ChatClient.Options();
         options.setAppkey("1431210929107274#kefuchannelapp98428");
         options.setTenantId("98428");
-        if (!ChatClient.getInstance().init(this,options)){
+        if (!ChatClient.getInstance().init(this, options)) {
             return;
         }
         UIProvider.getInstance().init(this);
+        //友盟初始化
+        UMConfigure.init(this, "611a02e41fee2e303c23c22a", "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
 
+        // 微信设置
+        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+        PlatformConfig.setWXFileProvider("com.work.mywork.fileprovider");
+        // QQ设置
+        PlatformConfig.setQQZone("101830139", "5d63ae8858f1caab67715ccd6c18d7a5");
+        PlatformConfig.setQQFileProvider("com.work.mywork.fileprovider");
+        // 新浪微博设置
+        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
+        PlatformConfig.setSinaFileProvider("com.work.mywork.fileprovider");
     }
 }

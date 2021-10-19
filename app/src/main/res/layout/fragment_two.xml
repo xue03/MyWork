@@ -7,11 +7,6 @@
     tools:context=".view.two.TwoFragment">
 
 
-   <androidx.recyclerview.widget.RecyclerView
-       android:id="@+id/rv"
-       app:layout_constraintTop_toTopOf="parent"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

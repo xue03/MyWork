@@ -17,35 +17,24 @@
     <!-- IM SDK required start -->
     <!-- 允许程序振动 -->
     <uses-permission android:name="android.permission.VIBRATE" />
-    <!-- 访问网络权限 -->
-    <uses-permission android:name="android.permission.INTERNET" />
     <!-- 麦克风权限 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <!-- 相机权限 -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <!-- 写入扩展存储权限-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <!-- 这个权限用于访问GPS定位(用于定位消息，如果不用定位相关可以移除) -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
     <!-- api 21后被标记为deprecated -->
     <uses-permission android:name="android.permission.GET_TASKS" />
-    <!-- 用于访问wifi网络信息-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
     <!-- 用于获取wifi的获取权限 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <!-- 允许程序在手机屏幕关闭后后台进程仍然运行 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- 允许程序修改声音设置信息 -->
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <!-- 允许程序访问电话状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 允许程序开机自动运行 -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- 捕获屏幕所需权限，Q后新增权限(多人音视频屏幕分享使用) -->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <!-- IM SDK required end -->
+
 
     <application
         android:name=".app.MyApplication"
@@ -57,85 +46,106 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-<!--        腾讯tbs预览-->
+        <!--        腾讯tbs预览-->
         <service
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
             android:label="dexopt"
-            android:process=":dexopt" >
-        </service>
+            android:process=":dexopt"></service>
+
         <activity android:name=".PdfWebviewActivity"></activity>
-        <activity android:name=".view.ManageActivity"/>
+        <activity android:name=".view.ManageActivity" />
         <activity android:name=".view.LoginActivity" />
-        <activity android:name=".AppActivity" >
+        <activity android:name=".AppActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="cn.com.csii.mobile.zxing.CaptureActivity"
+        <activity
+            android:name="cn.com.csii.mobile.zxing.CaptureActivity"
             tools:ignore="Instantiatable" />
-        <activity android:name=".view.ShowPdfActivity"/>
+        <activity android:name=".view.ShowPdfActivity" />
         <activity android:name=".MainActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
-        <activity android:name=".wxapi.WXEntryActivity"
+        <activity
+            android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".activity.ShareBoardActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.work.mywork.fileProvider"
+            android:authorities="com.work.mywork.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
+                tools:replace="android:resource"
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+<!--        qq分享相关activity-->
+<!--        <activity-->
+<!--            android:name="com.tencent.tauth.AuthActivity"-->
+<!--            android:launchMode="singleTask"-->
+<!--            android:noHistory="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.VIEW"/>-->
+<!--                <category android:name="android.intent.category.DEFAULT"/>-->
+<!--                <category android:name="android.intent.category.BROWSABLE"/>-->
+<!--                <data android:scheme="tencent100424468"/>-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+<!--        <activity-->
+<!--            android:name="com.tencent.connect.common.AssistActivity"-->
+<!--            android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
+<!--            android:configChanges="orientation|keyboardHidden|screenSize"/>-->
+        <!--        OCR添加activity  START-->
         <activity
             android:name="cn.cloudwalk.libproject.LiveResultActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="cn.cloudwalk.libproject.LiveActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="cn.cloudwalk.libproject.LiveStartActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
-        </activity>
-                                        <!--        环信配置 start     -->
-<!--        &lt;!&ndash; 设置环信应用的AppKey &ndash;&gt;-->
-<!--        <meta-data android:name="EASEMOB_APPKEY"  android:value="1134200720168765#weinfo" />-->
-<!--        &lt;!&ndash; 声明SDK所需的service SDK核心功能&ndash;&gt;-->
-<!--        <service android:name="com.hyphenate.chat.EMChatService" android:exported="true"/>-->
-<!--        <service android:name="com.hyphenate.chat.EMJobService"-->
-<!--            android:permission="android.permission.BIND_JOB_SERVICE"-->
-<!--            android:exported="true"-->
-<!--            />-->
-<!--        &lt;!&ndash; 声明SDK所需的receiver &ndash;&gt;-->
-<!--        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.PACKAGE_REMOVED"/>-->
-<!--                <data android:scheme="package"/>-->
-<!--            </intent-filter>-->
-<!--            &lt;!&ndash; 可选filter &ndash;&gt;-->
-<!--&lt;!&ndash;            <intent-filter>&ndash;&gt;-->
-<!--&lt;!&ndash;                <action android:name="android.intent.action.BOOT_COMPLETED"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                <action android:name="android.intent.action.USER_PRESENT" />&ndash;&gt;-->
-<!--&lt;!&ndash;            </intent-filter>&ndash;&gt;-->
-<!--        </receiver>-->
-<!--        &lt;!&ndash;        环信配置 end     &ndash;&gt;-->
+            android:screenOrientation="portrait"></activity>
+        <!--        OCR添加activity  END-->
+        <!--        环信配置 start     -->
+        <!--        &lt;!&ndash; 设置环信应用的AppKey &ndash;&gt;-->
+        <!--        <meta-data android:name="EASEMOB_APPKEY"  android:value="1134200720168765#weinfo" />-->
+        <!--        &lt;!&ndash; 声明SDK所需的service SDK核心功能&ndash;&gt;-->
+        <!--        <service android:name="com.hyphenate.chat.EMChatService" android:exported="true"/>-->
+        <!--        <service android:name="com.hyphenate.chat.EMJobService"-->
+        <!--            android:permission="android.permission.BIND_JOB_SERVICE"-->
+        <!--            android:exported="true"-->
+        <!--            />-->
+        <!--        &lt;!&ndash; 声明SDK所需的receiver &ndash;&gt;-->
+        <!--        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.intent.action.PACKAGE_REMOVED"/>-->
+        <!--                <data android:scheme="package"/>-->
+        <!--            </intent-filter>-->
+        <!--            &lt;!&ndash; 可选filter &ndash;&gt;-->
+        <!--&lt;!&ndash;            <intent-filter>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <action android:name="android.intent.action.BOOT_COMPLETED"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <action android:name="android.intent.action.USER_PRESENT" />&ndash;&gt;-->
+        <!--&lt;!&ndash;            </intent-filter>&ndash;&gt;-->
+        <!--        </receiver>-->
+        <!--        &lt;!&ndash;        环信配置 end     &ndash;&gt;-->
     </application>
-
+    <!--    从Android 11开始，必须要在AndroidManifest.xml清单文件中加入query权限申请，
+    才能检测到手机上安装的三方应用包安装状态，否则会出现“错误码2008：没有安装应用”、
+    “请先安装微信/QQ/微博/企业微信/钉钉/支付宝客户端”等现象-->
     <queries>
         <package android:name="com.tencent.mm" />            <!-- 指定微信包名-->
         <package android:name="com.tencent.mobileqq" />   <!-- 指定qq包名-->

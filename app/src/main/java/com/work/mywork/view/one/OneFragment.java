@@ -1,35 +1,22 @@
 package com.work.mywork.view.one;
 
-import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
 import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+
 import com.bumptech.glide.Glide;
 import com.work.mywork.R;
+import com.work.mywork.activity.ShareBoardActivity;
 import com.work.mywork.base.BaseFragment;
 import com.work.mywork.interfaces.IBasePresenter;
 import com.work.mywork.utils.CheckPermission;
@@ -37,10 +24,6 @@ import com.work.mywork.utils.ContentsUtil;
 import com.work.mywork.utils.LocationUtil;
 import com.work.mywork.utils.Permissions;
 import com.work.mywork.utils.PictureSelectUtil;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -65,6 +48,8 @@ public class OneFragment extends BaseFragment {
     TextView txtLocation;
     @BindView(R.id.btn_wheel)
     Button btnWheel;
+    @BindView(R.id.btn_share)
+    Button btnShare;
     private String path;
 
 
@@ -88,7 +73,7 @@ public class OneFragment extends BaseFragment {
         return R.layout.fragment_one;
     }
 
-    @OnClick({R.id.btn_toPhoto, R.id.album, R.id.contents,R.id.location,R.id.save_photo})
+    @OnClick({R.id.btn_toPhoto, R.id.album, R.id.contents, R.id.location, R.id.save_photo,R.id.btn_share})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_toPhoto://拍照+裁剪
@@ -110,12 +95,12 @@ public class OneFragment extends BaseFragment {
                 }
                 break;
             case R.id.save_photo://保存图片
-                if (CheckPermission.checkPermission(getContext(),getActivity(),Permissions.CAMERA,400)){
+                if (CheckPermission.checkPermission(getContext(), getActivity(), Permissions.CAMERA, 400)) {
 
                     byte[] decode = Base64.decode(path, Base64.NO_WRAP);
 
 
-                }else {
+                } else {
                     ActivityCompat.requestPermissions(getActivity(), Permissions.CAMERA, 400);
                 }
 
@@ -129,24 +114,25 @@ public class OneFragment extends BaseFragment {
                 }
                 break;
             case R.id.location://定位
-                if (CheckPermission.checkPermission(getContext(),getActivity(),Permissions.LOCATION,300)){
-                    if (LocationUtil.isOpenLocationService(getContext())){
+                if (CheckPermission.checkPermission(getContext(), getActivity(), Permissions.LOCATION, 300)) {
+                    if (LocationUtil.isOpenLocationService(getContext())) {
                         Toast.makeText(getContext(), "开始定位", Toast.LENGTH_LONG).show();
                         LocationUtil.getLocation(getContext());
                         SharedPreferences sp = getContext().getSharedPreferences("location", Context.MODE_PRIVATE);
-                        String address = sp.getString("address","");
-                        Log.d("TAG", "onClick: "+address);
+                        String address = sp.getString("address", "");
+                        Log.d("TAG", "onClick: " + address);
                         txtLocation.setText(address);
-                    }else {
+                    } else {
                         LocationUtil.showLocationServiceDialog(getContext());
                     }
-                }else {
+                } else {
                     ActivityCompat.requestPermissions(getActivity(), Permissions.LOCATION, 200);
                 }
                 break;
             case R.id.btn_wheel:
-
-
+                break;
+            case R.id.btn_share:
+                startActivity(new Intent(getActivity(), ShareBoardActivity.class));
                 break;
         }
     }
