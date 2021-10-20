@@ -19,6 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import com.work.mywork.interfaces.ResultCallBack;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -30,6 +32,7 @@ public class PictureSelectUtil {
     private static Uri takePictureUri;//拍照图片uri
     private static Uri cropPictureTempUri;//裁剪图片uri
     private static File takePictureFile;//拍照图片File
+    private static ResultCallBack callback;
 
     public static void createImagePathUri(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { //适配 Android Q
@@ -59,10 +62,12 @@ public class PictureSelectUtil {
 
     /**
      * 打开相册
+     *
      * @param activity
      * @param fragment
      */
-    public static void openAlbum(Activity activity, Fragment fragment) {
+    public static void openAlbum(Activity activity, Fragment fragment, ResultCallBack callBack) {
+        callback = callBack;
         Intent intent = new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
@@ -71,10 +76,12 @@ public class PictureSelectUtil {
 
     /**
      * 打开相机
+     *
      * @param activity
      * @param fragment
      */
-    public static void takePhoto(Activity activity, Fragment fragment) {
+    public static void takePhoto(Activity activity, Fragment fragment, ResultCallBack callBack) {
+        callback = callBack;
         createImagePathUri(activity);
         //takePictureUri = createImagePathUri(activity);
         Log.d("TAG", "onActivityResult: " + takePictureUri);
@@ -87,13 +94,14 @@ public class PictureSelectUtil {
         }
     }
 
-    public static void savePhoto(String path,Bitmap bitmap){
+    public static void savePhoto(String path, Bitmap bitmap) {
 
     }
 
 
     /**
      * 获取图片数据
+     *
      * @param activity
      * @param fragment
      * @param requestCode
@@ -102,8 +110,9 @@ public class PictureSelectUtil {
      * @param cropEnabled
      * @return
      */
-    public static String onActivityResult(Activity activity, Fragment fragment, int requestCode, int resultCode, @Nullable Intent data, boolean cropEnabled) {
-        String picturePath = null;//图片路径
+    public static void onActivityResult(Activity activity, Fragment fragment, int requestCode, int resultCode, @Nullable Intent data, boolean cropEnabled) {
+        String picturePath = null;//图片路径 不判断data==null(拍照获取到的data==null)
+        Log.d("TAG", "onActivityResult: " + resultCode + " " + requestCode);
         if (resultCode == activity.RESULT_OK) {
             Uri uri = null;
             switch (requestCode) {
@@ -140,14 +149,18 @@ public class PictureSelectUtil {
                     if (file != null) {
                         picturePath = file.getAbsolutePath();
                     }
+                    callback.Success(picturePath);
                     break;
             }
         }
-        return picturePath;
+        if (resultCode == activity.RESULT_CANCELED) {
+            callback.Filed("取消操作");
+        }
     }
 
     /**
      * 图片裁剪
+     *
      * @param activity
      * @param uri
      * @param w
@@ -201,6 +214,7 @@ public class PictureSelectUtil {
 
     /**
      * 获取图片地址
+     *
      * @param context
      * @param uri
      * @return

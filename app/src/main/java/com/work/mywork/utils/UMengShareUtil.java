@@ -1,11 +1,15 @@
 package com.work.mywork.utils;
 
+import android.graphics.Bitmap;
 import android.widget.Toast;
 
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.editorpage.ShareActivity;
+import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.shareboard.SnsPlatform;
+import com.work.mywork.R;
 import com.work.mywork.activity.ShareBoardActivity;
 import com.work.mywork.interfaces.ResultCallBack;
 
@@ -34,7 +38,20 @@ public class UMengShareUtil {
                 .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.WEIXIN)
                 .setCallback(new CustomShareListener(activity)).open();
     }
-    //分享网页
+    //分享纯图片
+    public static void shareUMBitmap(ShareBoardActivity activity, ResultCallBack callBack){
+        callback=callBack;
+//        UMImage image =new UMImage(activity,"imageurl");//网络图片
+//        UMImage image =new UMImage(activity, file);//本地文件
+//        UMImage image =new UMImage(activity, R.drawable.xxx);//资源文件
+//        UMImage image =new UMImage(activity, bitmap);//bitmap文件
+//        UMImage image =new UMImage(activity, byte[]);//字节流
+        UMImage umImage = new UMImage(activity, R.drawable.logo);
+        new ShareAction(activity)
+                .withMedia(umImage)
+                .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN)
+                .setCallback(new CustomShareListener(activity)).open();
+    }
 
 
     private void initPlatforms(){

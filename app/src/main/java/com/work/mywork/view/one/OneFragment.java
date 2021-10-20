@@ -19,11 +19,15 @@ import com.work.mywork.R;
 import com.work.mywork.activity.ShareBoardActivity;
 import com.work.mywork.base.BaseFragment;
 import com.work.mywork.interfaces.IBasePresenter;
+import com.work.mywork.interfaces.ResultCallBack;
 import com.work.mywork.utils.CheckPermission;
 import com.work.mywork.utils.ContentsUtil;
 import com.work.mywork.utils.LocationUtil;
 import com.work.mywork.utils.Permissions;
 import com.work.mywork.utils.PictureSelectUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -73,14 +77,25 @@ public class OneFragment extends BaseFragment {
         return R.layout.fragment_one;
     }
 
-    @OnClick({R.id.btn_toPhoto, R.id.album, R.id.contents, R.id.location, R.id.save_photo,R.id.btn_share})
+    @OnClick({R.id.btn_toPhoto, R.id.album, R.id.contents, R.id.location, R.id.save_photo, R.id.btn_share})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_toPhoto://拍照+裁剪
                 boolean b = CheckPermission.checkPermission(getContext(), getActivity(), Permissions.CAMERA, 100);
                 if (b) {
                     Toast.makeText(getContext(), "打开相机", Toast.LENGTH_LONG).show();
-                    PictureSelectUtil.takePhoto(getActivity(), this);
+                    PictureSelectUtil.takePhoto(getActivity(), this, new ResultCallBack() {
+                        @Override
+                        public void Success(Object string) {
+                            path = string.toString();
+                            Glide.with(getContext()).load(path).into(imageView);
+                        }
+
+                        @Override
+                        public void Filed(String error) {
+                            Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
+                        }
+                    });
                 } else {
                     ActivityCompat.requestPermissions(getActivity(), Permissions.CAMERA, 100);
                 }
@@ -89,7 +104,18 @@ public class OneFragment extends BaseFragment {
                 boolean a = CheckPermission.checkPermission(getContext(), getActivity(), Permissions.STORAGE, 100);
                 if (a) {
                     Toast.makeText(getContext(), "打开相册", Toast.LENGTH_LONG).show();
-                    PictureSelectUtil.openAlbum(getActivity(), this);
+                    PictureSelectUtil.openAlbum(getActivity(), this, new ResultCallBack() {
+                        @Override
+                        public void Success(Object string) {
+                            path = string.toString();
+                            Glide.with(getContext()).load(path).into(imageView);
+                        }
+
+                        @Override
+                        public void Filed(String error) {
+                            Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
+                        }
+                    });
                 } else {
                     ActivityCompat.requestPermissions(getActivity(), Permissions.CAMERA, 100);
                 }
@@ -108,7 +134,22 @@ public class OneFragment extends BaseFragment {
             case R.id.contents://通讯录获取联系人
                 if (CheckPermission.checkPermission(getContext(), getActivity(), Permissions.CONTACTS, 200)) {
                     Toast.makeText(getContext(), "打开通讯录", Toast.LENGTH_LONG).show();
-                    ContentsUtil.openContent(this);
+                    ContentsUtil.openContent(this, new ResultCallBack() {
+                        @Override
+                        public void Success(Object string) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(string.toString());
+                                textContent.setText("姓名：" + jsonObject.opt("name") + "   号码：" + jsonObject.opt("number"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void Filed(String error) {
+                            Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
+                        }
+                    });
                 } else {
                     ActivityCompat.requestPermissions(getActivity(), Permissions.CONTACTS, 200);
                 }
@@ -140,10 +181,8 @@ public class OneFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        path = PictureSelectUtil.onActivityResult(getActivity(), this, requestCode, resultCode, data, true);
-        Glide.with(getContext()).load(path).into(imageView);
-        String[] contacts = ContentsUtil.onActivityResult(getContext(), requestCode, resultCode, data);
-        textContent.setText("姓名：" + contacts[0] + "   号码：" + contacts[1]);
+        PictureSelectUtil.onActivityResult(getActivity(), this, requestCode, resultCode, data, true);
+        ContentsUtil.onActivityResult(getContext(), requestCode, resultCode, data);
     }
 
 }

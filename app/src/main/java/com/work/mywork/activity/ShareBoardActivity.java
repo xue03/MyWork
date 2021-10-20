@@ -7,23 +7,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.media.UMImage;
-import com.umeng.socialize.media.UMWeb;
-import com.umeng.socialize.shareboard.SnsPlatform;
-import com.umeng.socialize.utils.ShareBoardlistener;
 import com.work.mywork.R;
 import com.work.mywork.base.BaseActivity;
 import com.work.mywork.interfaces.IBasePresenter;
 import com.work.mywork.interfaces.ResultCallBack;
 import com.work.mywork.utils.UMengShareUtil;
-
-import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +31,8 @@ public class ShareBoardActivity extends BaseActivity {
     TextView txtActivityTitle;
     @BindView(R.id.btn_shareboard)
     Button btnShareboard;
+    @BindView(R.id.btn_shareImage)
+    Button btnShareImage;
     private UMShareListener mShareListener;
     private ShareAction mShareAction;
 
@@ -97,15 +91,16 @@ public class ShareBoardActivity extends BaseActivity {
     protected int getLayout() {
         return R.layout.activity_umshare;
     }
-    @OnClick({R.id.btn_shareboard})
-    public void onClick(View view){
+
+    @OnClick({R.id.btn_shareboard, R.id.btn_shareImage})
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_shareboard:
 
                 UMengShareUtil.shareUMText(this, "友盟分享纯文本", new ResultCallBack() {
                     @Override
                     public void Success(Object string) {
-                        Log.d("ShareBoardActivity", "Success: "+string.toString());
+                        Log.d("ShareBoardActivity", "Success: " + string.toString());
                     }
 
                     @Override
@@ -114,9 +109,23 @@ public class ShareBoardActivity extends BaseActivity {
                     }
                 });
                 break;
+            case R.id.btn_shareImage:
+
+                UMengShareUtil.shareUMBitmap(this, new ResultCallBack() {
+                    @Override
+                    public void Success(Object string) {
+                        Log.d("ShareBoardActivity", "Success: " + string.toString());
+                    }
+
+                    @Override
+                    public void Filed(String error) {
+
+                    }
+                });
+                break;
+
         }
     }
-
 
 
     @Override
@@ -140,4 +149,5 @@ public class ShareBoardActivity extends BaseActivity {
         super.onDestroy();
         UMShareAPI.get(this).release();
     }
+
 }

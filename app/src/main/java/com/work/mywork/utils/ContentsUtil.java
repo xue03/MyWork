@@ -12,27 +12,40 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.work.mywork.interfaces.ResultCallBack;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class ContentsUtil {
 
 
     private static int CONTACT_CODE = 0x14;
 
-    public static void openContent(Fragment fragment) {
-
+    private static ResultCallBack callback;
+    public static void openContent(Fragment fragment, ResultCallBack callBack) {
+        callback=callBack;
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         fragment.startActivityForResult(intent, CONTACT_CODE);
     }
 
-    public static String[] onActivityResult(Context context, int requestCode, int resultCode, @Nullable Intent data) {
+    public static void onActivityResult(Context context, int requestCode, int resultCode, @Nullable Intent data) {
         String[] contacts = new String[0];
         if (requestCode == CONTACT_CODE && resultCode == Activity.RESULT_OK) {
             if (data == null) {
-                return null;
+                callback.Filed("位获取到联系人");
             }
             Uri uri = data.getData();
             contacts = getPhoneContacts(uri, context);
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("name",contacts[0]);
+                jsonObject.put("number",contacts[1]);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            callback.Success(jsonObject.toString());
         }
-        return contacts;
     }
 
     private static String[] getPhoneContacts(Uri uri, Context context) {
@@ -56,6 +69,7 @@ public class ContentsUtil {
             }
             phone.close();
             cursor.close();
+
         } else {
             return null;
         }
