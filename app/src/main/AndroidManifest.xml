@@ -62,6 +62,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".PictuteActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
         <activity
             android:name="cn.com.csii.mobile.zxing.CaptureActivity"
             tools:ignore="Instantiatable" />
@@ -78,7 +85,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".activity.ShareBoardActivity"/>
+        <activity android:name=".activity.ShareBoardActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -86,26 +93,26 @@
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
-                tools:replace="android:resource"
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/file_paths"
+                tools:replace="android:resource" />
         </provider>
-<!--        qq分享相关activity-->
-<!--        <activity-->
-<!--            android:name="com.tencent.tauth.AuthActivity"-->
-<!--            android:launchMode="singleTask"-->
-<!--            android:noHistory="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.VIEW"/>-->
-<!--                <category android:name="android.intent.category.DEFAULT"/>-->
-<!--                <category android:name="android.intent.category.BROWSABLE"/>-->
-<!--                <data android:scheme="tencent100424468"/>-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
-<!--        <activity-->
-<!--            android:name="com.tencent.connect.common.AssistActivity"-->
-<!--            android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
-<!--            android:configChanges="orientation|keyboardHidden|screenSize"/>-->
+        <!--        qq分享相关activity-->
+        <!--        <activity-->
+        <!--            android:name="com.tencent.tauth.AuthActivity"-->
+        <!--            android:launchMode="singleTask"-->
+        <!--            android:noHistory="true">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.intent.action.VIEW"/>-->
+        <!--                <category android:name="android.intent.category.DEFAULT"/>-->
+        <!--                <category android:name="android.intent.category.BROWSABLE"/>-->
+        <!--                <data android:scheme="tencent100424468"/>-->
+        <!--            </intent-filter>-->
+        <!--        </activity>-->
+        <!--        <activity-->
+        <!--            android:name="com.tencent.connect.common.AssistActivity"-->
+        <!--            android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
+        <!--            android:configChanges="orientation|keyboardHidden|screenSize"/>-->
         <!--        OCR添加activity  START-->
         <activity
             android:name="cn.cloudwalk.libproject.LiveResultActivity"

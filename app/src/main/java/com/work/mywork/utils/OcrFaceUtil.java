@@ -19,6 +19,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import cn.cloudwalk.FaceInterface;
 import cn.cloudwalk.libproject.Bulider;
@@ -72,6 +73,25 @@ public class OcrFaceUtil {
         liveList.add(FaceInterface.LivessType.LIVESS_EYE);
 
         final Bulider bulider = new Bulider();
+        bulider.setLicence(licence).setResultCallBack(new cn.cloudwalk.libproject.callback.ResultCallBack() {
+            @Override
+            public void result(boolean isLivePass, boolean isVerfyPass, String faceSessionId, double face_score, int resultType, byte[] bestFaceImgData, byte[] clipedBestFaceImgData, HashMap<Integer, byte[]> liveImgDatas) {
+
+                if (resultType==-1){
+                    if (callBack != null) {
+                        JSONObject result = new JSONObject();
+                        try {
+                            result.put("errorCode", resultType+"");
+                            result.put("errorMsg", "返回");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        callBack.Success(result.toString());
+                    }
+                }
+
+            }
+        });
 
         //#if CID=="BANKOFTIANJINZX"
         bulider.setLicence(licence).setFrontLiveFace(new FrontLiveCallback() {
@@ -98,18 +118,19 @@ public class OcrFaceUtil {
                         callBack.Success(result.toString());
                     }
                 } else {
+
                     bulider.setFaceLiveResult(MyApplication.mContext, Bulider
                             .FACE_LIVE_FAIL, Bulider.FACE_LIVE_FAIL);
-                    if (callBack != null) {
-                        JSONObject result = new JSONObject();
-                        try {
-                            result.put("errorCode", "700");
-                            result.put("errorMsg", getErrorMsg(700));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        callBack.Success(result.toString());
-                    }
+//                    if (callBack != null) {
+//                        JSONObject result = new JSONObject();
+//                        try {
+//                            result.put("errorCode", "700");
+//                            result.put("errorMsg", getErrorMsg(700));
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                        callBack.Success(result.toString());
+//                    }
                 }
             }
 

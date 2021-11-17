@@ -8,6 +8,7 @@ import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.editorpage.ShareActivity;
 import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMVideo;
 import com.umeng.socialize.shareboard.SnsPlatform;
 import com.work.mywork.R;
 import com.work.mywork.activity.ShareBoardActivity;
@@ -49,6 +50,19 @@ public class UMengShareUtil {
         UMImage umImage = new UMImage(activity, R.drawable.logo);
         new ShareAction(activity)
                 .withMedia(umImage)
+                .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN)
+                .setCallback(new CustomShareListener(activity)).open();
+    }
+    //分享视频 （只允许分享网络视频）
+    public static void shareUMVideo(ShareBoardActivity activity, ResultCallBack callBack){
+        callback=callBack;
+        UMImage umImage = new UMImage(activity, R.drawable.logo);
+        UMVideo video =new UMVideo("videourl");
+        video.setTitle("This is music title");//视频的标题
+        video.setThumb(umImage);//视频的缩略图
+        video.setDescription("my description");//视频的描述
+        new ShareAction(activity)
+                .withMedia(video)
                 .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN)
                 .setCallback(new CustomShareListener(activity)).open();
     }

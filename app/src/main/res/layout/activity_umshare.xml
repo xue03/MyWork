@@ -24,4 +24,12 @@
         android:text="分享图片"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_shareboard" />
+    <Button
+        android:id="@+id/btn_shareVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="分享视频"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_shareImage" />
 </androidx.constraintlayout.widget.ConstraintLayout>

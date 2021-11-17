@@ -26,7 +26,7 @@ public class MyApplication extends Application {
         //友盟初始化
         UMConfigure.init(this, "611a02e41fee2e303c23c22a", "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
 
-        // 微信设置
+        // 微信设置 需到开发平台注册应用获取appid
         PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
         PlatformConfig.setWXFileProvider("com.work.mywork.fileprovider");
         // QQ设置

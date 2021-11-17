@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat;
 import com.bumptech.glide.Glide;
 import com.work.mywork.R;
 import com.work.mywork.activity.ShareBoardActivity;
+import com.work.mywork.activity.SystemShareActivity;
 import com.work.mywork.base.BaseFragment;
 import com.work.mywork.interfaces.IBasePresenter;
 import com.work.mywork.interfaces.ResultCallBack;
@@ -25,6 +26,7 @@ import com.work.mywork.utils.ContentsUtil;
 import com.work.mywork.utils.LocationUtil;
 import com.work.mywork.utils.Permissions;
 import com.work.mywork.utils.PictureSelectUtil;
+import com.work.mywork.utils.SystemShareUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,6 +56,8 @@ public class OneFragment extends BaseFragment {
     Button btnWheel;
     @BindView(R.id.btn_share)
     Button btnShare;
+    @BindView(R.id.btn_share2)
+    Button btnShare2;
     private String path;
 
 
@@ -77,7 +81,7 @@ public class OneFragment extends BaseFragment {
         return R.layout.fragment_one;
     }
 
-    @OnClick({R.id.btn_toPhoto, R.id.album, R.id.contents, R.id.location, R.id.save_photo, R.id.btn_share})
+    @OnClick({R.id.btn_toPhoto, R.id.album, R.id.contents, R.id.location, R.id.save_photo, R.id.btn_share,R.id.btn_share2})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_toPhoto://拍照+裁剪
@@ -174,6 +178,9 @@ public class OneFragment extends BaseFragment {
                 break;
             case R.id.btn_share:
                 startActivity(new Intent(getActivity(), ShareBoardActivity.class));
+                break;
+            case R.id.btn_share2:
+                startActivity(new Intent(getActivity(), SystemShareActivity.class));
                 break;
         }
     }

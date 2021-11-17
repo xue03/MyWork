@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/activity_actionbar" />
+
+    <Button
+        android:id="@+id/btn_shareText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="分享纯文本"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/action_bar" />
+
+    <Button
+        android:id="@+id/btn_shareImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="分享图片"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_shareText" />
+
+    <Button
+        android:id="@+id/btn_shareTxtImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="分享文图"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_shareImage" />
+
+    <Button
+        android:id="@+id/btn_shareUrl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="分享链接"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_shareTxtImg" />
+
+    <Button
+        android:id="@+id/btn_shareMusic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="分享音乐"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_shareUrl" />
+    <Button
+        android:id="@+id/btn_shareVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="分享视频"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_shareUrl" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

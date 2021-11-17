@@ -2,7 +2,6 @@ package com.work.mywork.activity;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,11 +17,10 @@ import com.work.mywork.interfaces.ResultCallBack;
 import com.work.mywork.utils.UMengShareUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by wangfei on 2018/1/23.
+/**开发文档
+ * https://developer.umeng.com/docs/128606/detail/193883#h2-u5206u4EABu89C6u98916
  */
 
 public class ShareBoardActivity extends BaseActivity {
@@ -33,6 +31,8 @@ public class ShareBoardActivity extends BaseActivity {
     Button btnShareboard;
     @BindView(R.id.btn_shareImage)
     Button btnShareImage;
+    @BindView(R.id.btn_shareVideo)
+    Button btnShareVideo;
     private UMShareListener mShareListener;
     private ShareAction mShareAction;
 
@@ -92,7 +92,7 @@ public class ShareBoardActivity extends BaseActivity {
         return R.layout.activity_umshare;
     }
 
-    @OnClick({R.id.btn_shareboard, R.id.btn_shareImage})
+    @OnClick({R.id.btn_shareboard, R.id.btn_shareImage,R.id.btn_shareVideo})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_shareboard:
@@ -110,8 +110,20 @@ public class ShareBoardActivity extends BaseActivity {
                 });
                 break;
             case R.id.btn_shareImage:
-
                 UMengShareUtil.shareUMBitmap(this, new ResultCallBack() {
+                    @Override
+                    public void Success(Object string) {
+                        Log.d("ShareBoardActivity", "Success: " + string.toString());
+                    }
+
+                    @Override
+                    public void Filed(String error) {
+
+                    }
+                });
+                break;
+            case R.id.btn_shareVideo:
+                UMengShareUtil.shareUMVideo(this, new ResultCallBack() {
                     @Override
                     public void Success(Object string) {
                         Log.d("ShareBoardActivity", "Success: " + string.toString());
