@@ -17,5 +17,16 @@
         android:layout_marginBottom="200dp"
         android:layout_width="match_parent"
         android:layout_height="50dp" />
+    <Button
+        android:id="@+id/btn_goin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="150dp"
+        android:background="#43737577"
+        android:text="立即进入"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

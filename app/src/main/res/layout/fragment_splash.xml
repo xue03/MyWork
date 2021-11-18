@@ -7,15 +7,6 @@
     tools:context=".splash.SplashFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <Button
-        android:id="@+id/btn_goin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp"
-        android:background="#43737577"
-        android:text="立即进入"
-        android:visibility="gone" />
+
 
 </RelativeLayout>

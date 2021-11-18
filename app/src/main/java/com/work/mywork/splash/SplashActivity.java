@@ -1,21 +1,26 @@
 package com.work.mywork.splash;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.work.mywork.AppActivity;
 import com.work.mywork.R;
 import com.work.mywork.base.BaseActivity;
 import com.work.mywork.interfaces.IBasePresenter;
+import com.work.mywork.utils.SpUtils;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SplashActivity extends BaseActivity {
 
@@ -23,6 +28,8 @@ public class SplashActivity extends BaseActivity {
     ViewPager splashViewpage;
     @BindView(R.id.indicator)
     LinearLayout indicator;
+    @BindView(R.id.btn_goin)
+    Button btn_go;
     private ArrayList<Fragment> fragments;
 
     @Override
@@ -71,6 +78,9 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
+                if (position==2){
+                    btn_go.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -83,5 +93,14 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected int getLayout() {
         return R.layout.activity_splash;
+    }
+    @OnClick(R.id.btn_goin)
+    public void onClick(View view){
+        switch (view.getId()) {
+            case R.id.btn_goin:
+                startActivity(new Intent(this, AppActivity.class));
+                finish();
+                break;
+        }
     }
 }

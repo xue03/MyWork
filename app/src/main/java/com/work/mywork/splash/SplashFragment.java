@@ -28,12 +28,12 @@ public class SplashFragment extends Fragment {
     }
 
     private void initView(View inflate) {
-        come = inflate.findViewById(R.id.btn_goin);
+       // come = inflate.findViewById(R.id.btn_goin);
         bgimage = inflate.findViewById(R.id.rl_splash);
         int index = getArguments().getInt("index", 0);
         bgimage.setBackgroundResource(resoultimage[index]);
-        if (index==2){
-            come.setVisibility(View.VISIBLE);
-        }
+//        if (index==2){
+//            come.setVisibility(View.VISIBLE);
+//        }
     }
 }
