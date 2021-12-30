@@ -49,12 +49,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".splash.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".activity.SystemShareActivity"/>
+<!--        <activity android:name="com.work.screenshotedit.ScreenShotEditActivity"/>-->
+        <activity android:name=".activity.LottieView">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".splash.SplashActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <!-- 腾讯tbs预览 -->
         <service
@@ -63,14 +72,20 @@
             android:process=":dexopt" />
 
         <activity android:name=".PdfWebviewActivity" />
-        <activity android:name=".view.ManageActivity" />
-        <activity android:name=".view.LoginActivity" />
-        <activity android:name=".AppActivity">
+        <activity android:name=".view.ManageActivity" >
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".view.LoginActivity" />
+        <activity android:name=".AppActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".PictuteActivity">
 

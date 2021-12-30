@@ -1,3 +1,4 @@
+include ':screenShotEdit'
 include ':wheelview'
 include ':ocrsdkproject'
 include ':csiizxing'
